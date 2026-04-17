@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: mart_city_weather_summary
+    description: >
+      Monthly weather summary aggregated by city. Materialised as a table
+      for fast BI queries. Primary grain: one row per city per month.
+    columns:
+      - name: city_name
+        description: "City name"
+        tests:
+          - not_null
+
+      - name: weather_month
+        description: "First day of the month (truncated date)"
+        tests:
+          - not_null
+
+      - name: avg_temp_c
+        description: "Average of daily mean temperatures for the month (°C)"
+        tests:
+          - not_null
+
+      - name: total_precipitation_mm
+        description: "Sum of daily precipitation for the month (mm)"
+
+      - name: rainy_days
+        description: "Count of days where precipitation > 0"
+
+      - name: record_high_c
+        description: "Highest daily max temperature recorded in the month (°C)"
+
+      - name: record_low_c
+        description: "Lowest daily min temperature recorded in the month (°C)"
+
+      - name: total_days
+        description: "Number of observation days in the month (data completeness check)"
+        tests:
+          - not_null
